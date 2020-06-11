@@ -26,8 +26,24 @@ drop treatment_effect y1 y0 patient
 *a
 reg outcome d
 //result equals SDO
-outreg2 using assignment1_table1.doc, replace ctitle("Model 1") label
+outreg2 using assignment3_table1.doc, replace ctitle("Model 1") label
 
 *b
 reg outcome d age
-outreg2 using assignment1_table1.doc, append ctitle ("Model 2") label
+outreg2 using assignment3_table1.doc, append ctitle ("Model 2") label
+
+*c
+reg outcome d age
+outreg2 using assignment3_table2.doc, replace ctitle("Model 1") label
+
+reg d age
+outreg2 using assignment3_table2.doc, append ctitle("Model 2") label
+
+predict resid, residuals
+label var resid "D*"
+
+reg outcome resid
+outreg2 using assignment3_table2.doc, append ctitle("Model 3") label
+
+log close
+
